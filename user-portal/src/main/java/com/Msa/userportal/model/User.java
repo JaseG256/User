@@ -1,5 +1,7 @@
 package com.Msa.userportal.model;
 
+import com.Msa.userportal.model.audit.DateAudit;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +15,7 @@ import java.util.Set;
                 "email"
         })
 })
-public class User {
+public class User extends DateAudit {
 
     @Id
     @Column

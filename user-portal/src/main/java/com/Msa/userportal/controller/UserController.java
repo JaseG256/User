@@ -4,6 +4,8 @@ import com.Msa.userportal.model.User;
 import com.Msa.userportal.service.UserService;
 import com.Msa.userportal.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +25,7 @@ public class UserController {
         return userService.saveOrUpdate(user);
     }
 
+//    @PreAuthorize("hasRole('USER')")
     @GetMapping(path = "/{id}")
     public Optional<User> findOne(@PathVariable("id") Long id){
         return userService.getById(id);
@@ -39,6 +42,10 @@ public class UserController {
          userService.delete(id);
     }
 
+
+//    @Secured("ROLE_USER")
+//    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+//    @PreAuthorize("hasRole('USER')")
     @GetMapping(path = "/users")
     public List<User> findAll(){
         return userService.listAll();

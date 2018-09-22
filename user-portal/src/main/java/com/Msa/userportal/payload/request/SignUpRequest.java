@@ -1,4 +1,4 @@
-package com.Msa.userportal.payload;
+package com.Msa.userportal.payload.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

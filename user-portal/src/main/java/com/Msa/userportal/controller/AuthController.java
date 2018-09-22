@@ -4,10 +4,10 @@ import com.Msa.userportal.exception.AppException;
 import com.Msa.userportal.model.Role;
 import com.Msa.userportal.model.RoleName;
 import com.Msa.userportal.model.User;
-import com.Msa.userportal.payload.ApiResponse;
-import com.Msa.userportal.payload.JwtAuthenticationResponse;
-import com.Msa.userportal.payload.LoginRequest;
-import com.Msa.userportal.payload.SignUpRequest;
+import com.Msa.userportal.payload.response.ApiResponse;
+import com.Msa.userportal.payload.response.JwtAuthenticationResponse;
+import com.Msa.userportal.payload.request.LoginRequest;
+import com.Msa.userportal.payload.request.SignUpRequest;
 import com.Msa.userportal.security.JwtTokenProvider;
 import com.Msa.userportal.service.RoleServiceImpl;
 import com.Msa.userportal.service.UserServiceImpl;
@@ -51,7 +51,7 @@ public class AuthController {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsernameOrEmail(),
+                        loginRequest.getUsername(),
                         loginRequest.getPassword()
                 )
         );

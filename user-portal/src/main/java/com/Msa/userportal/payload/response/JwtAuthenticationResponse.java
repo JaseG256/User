@@ -1,4 +1,4 @@
-package com.Msa.userportal.payload;
+package com.Msa.userportal.payload.response;
 
 public class JwtAuthenticationResponse {
     private String accessToken;
