@@ -1,5 +1,6 @@
 package com.Msa.userportal.security;
 
+import com.Msa.userportal.model.DBFile;
 import com.Msa.userportal.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,13 +25,16 @@ public class UserPrincipal implements UserDetails {
     @JsonIgnore
     private String password;
 
+    private DBFile avatar;
+
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String username, String email, String password, DBFile avatar, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.avatar = avatar;
         this.authorities = authorities;
     }
 
@@ -44,6 +48,7 @@ public class UserPrincipal implements UserDetails {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
+                user.getAvatar(),
                 authorities
         );
     }
@@ -65,6 +70,8 @@ public class UserPrincipal implements UserDetails {
     public String getPassword() {
         return password;
     }
+
+    public DBFile getAvatar() { return avatar; }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

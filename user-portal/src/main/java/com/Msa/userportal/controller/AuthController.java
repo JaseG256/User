@@ -27,7 +27,7 @@ import java.net.URI;
 import java.util.Collections;
 
 @CrossOrigin(origins = "http://localhost:4200")
-//@RequestMapping("api/auth")
+@RequestMapping("api/auth")
 @RestController
 public class AuthController {
 
@@ -62,7 +62,7 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
-    @PostMapping("/add")
+    @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if(userService.existsByUsername(signUpRequest.getUsername())) {
             return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
@@ -91,6 +91,18 @@ public class AuthController {
                 .fromCurrentContextPath().path("/users/{username}")
                 .buildAndExpand(result.getUsername()).toUri();
 
-        return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        signUpRequest.getUsername(),
+                        signUpRequest.getPassword()
+                )
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = tokenProvider.generateToken(authentication);
+
+        return ResponseEntity.created(location)
+                .body(new ApiResponse(true, "User registered successfully: " + jwt));
     }
 }

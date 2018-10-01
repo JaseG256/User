@@ -31,11 +31,17 @@ public class User extends DateAudit {
     private String email;
     @Column
     private String password;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    @OneToOne(fetch = FetchType.LAZY,
+    cascade = CascadeType.ALL,
+    mappedBy = "user")
+    private DBFile avatar;
 
     public User() { }
 
@@ -100,6 +106,10 @@ public class User extends DateAudit {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public DBFile getAvatar() { return avatar; }
+
+    public void setAvatar(DBFile avatar) { this.avatar = avatar; }
 
     @Override
     public String toString() {

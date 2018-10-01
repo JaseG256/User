@@ -20,6 +20,10 @@ public class DBFile {
     @Lob
     private byte[] data;
 
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public DBFile() { }
 
     public DBFile(String fileName, String fileType, byte[] data) {
