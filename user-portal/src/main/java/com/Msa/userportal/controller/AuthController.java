@@ -9,9 +9,12 @@ import com.Msa.userportal.payload.response.JwtAuthenticationResponse;
 import com.Msa.userportal.payload.request.LoginRequest;
 import com.Msa.userportal.payload.request.SignUpRequest;
 import com.Msa.userportal.security.JwtTokenProvider;
+import com.Msa.userportal.service.RoleService;
 import com.Msa.userportal.service.RoleServiceImpl;
+import com.Msa.userportal.service.UserService;
 import com.Msa.userportal.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -35,10 +38,12 @@ public class AuthController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    UserServiceImpl userService;
+    @Qualifier("userServicer")
+    UserService userService;
 
     @Autowired
-    RoleServiceImpl roleService;
+    @Qualifier("roleServicer")
+    RoleService roleService;
 
     @Autowired
     PasswordEncoder passwordEncoder;

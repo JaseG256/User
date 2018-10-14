@@ -8,6 +8,7 @@ import com.Msa.userportal.security.UserPrincipal;
 import com.Msa.userportal.service.UserService;
 import com.Msa.userportal.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,8 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    private UserServiceImpl userService;
+    @Qualifier("userServicer")
+    private UserService userService;
 
     @PostMapping(path = "/user/add")
     public User create(@RequestBody User user){

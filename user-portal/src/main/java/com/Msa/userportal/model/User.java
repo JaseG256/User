@@ -3,7 +3,9 @@ package com.Msa.userportal.model;
 import com.Msa.userportal.model.audit.DateAudit;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,10 +40,16 @@ public class User extends DateAudit {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY,
-    cascade = CascadeType.ALL,
-    mappedBy = "user")
-    private DBFile avatar;
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "user_group_chats",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "group_chat_id"))
+//    private List<Conversation> groupChats = new ArrayList<>();
+
+//    @OneToOne(fetch = FetchType.LAZY,
+//    cascade = CascadeType.ALL,
+//    mappedBy = "user")
+//    private DBFile avatar;
 
     public User() { }
 
@@ -107,9 +115,9 @@ public class User extends DateAudit {
         this.roles = roles;
     }
 
-    public DBFile getAvatar() { return avatar; }
-
-    public void setAvatar(DBFile avatar) { this.avatar = avatar; }
+//    public DBFile getAvatar() { return avatar; }
+//
+//    public void setAvatar(DBFile avatar) { this.avatar = avatar; }
 
     @Override
     public String toString() {

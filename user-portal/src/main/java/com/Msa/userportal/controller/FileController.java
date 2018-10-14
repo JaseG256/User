@@ -2,10 +2,12 @@ package com.Msa.userportal.controller;
 
 import com.Msa.userportal.model.DBFile;
 import com.Msa.userportal.payload.response.UploadFileResponse;
+import com.Msa.userportal.service.DBFileStorageService;
 import com.Msa.userportal.service.DBFileStorageServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +27,7 @@ public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     @Autowired
+//    @Qualifier("fileServicer")
     private DBFileStorageServiceImpl dbFileStorageService;
 
     @PostMapping("/uploadFile")

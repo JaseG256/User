@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service(value = "userServicer")
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> listAll() {
         List<User> users = new ArrayList<>();
-        userRepository.findAll().forEach(users::add); //fun with Java 8
+        userRepository.findAll().forEach(users::add);
         return users;
     }
 

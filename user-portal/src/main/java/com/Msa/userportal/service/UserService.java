@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface UserService extends CRUDService<User> {
 
+    List<User> listAll();
+
     Optional<User> findByEmail(String email);
 
     Optional<User> findByUsernameOrEmail(String username, String email);
