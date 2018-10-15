@@ -1,7 +1,11 @@
 package com.Msa.userportal.controller;
 
 import com.Msa.userportal.model.DBFile;
+import com.Msa.userportal.model.User;
 import com.Msa.userportal.payload.response.UploadFileResponse;
+import com.Msa.userportal.security.CurrentUser;
+import com.Msa.userportal.security.CustomUserDetailsService;
+import com.Msa.userportal.security.UserPrincipal;
 import com.Msa.userportal.service.DBFileStorageService;
 import com.Msa.userportal.service.DBFileStorageServiceImpl;
 import org.slf4j.Logger;
@@ -13,6 +17,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -27,8 +32,11 @@ public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     @Autowired
-//    @Qualifier("fileServicer")
-    private DBFileStorageServiceImpl dbFileStorageService;
+    @Qualifier("fileServicer")
+    private DBFileStorageService dbFileStorageService;
+
+    @Autowired
+    CustomUserDetailsService userDetailsService;
 
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
@@ -38,6 +46,8 @@ public class FileController {
                 .path("/downloadFile/")
                 .path(dbFile.getId())
                 .toUriString();
+
+
 
         return new UploadFileResponse(dbFile.getFileName(), fileDownLoadUri,
                 file.getContentType(), file.getSize());

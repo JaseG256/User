@@ -3,8 +3,12 @@ package com.Msa.userportal.service;
 import com.Msa.userportal.exception.FileStorageException;
 import com.Msa.userportal.exception.MyFileNotFoundException;
 import com.Msa.userportal.model.DBFile;
+import com.Msa.userportal.model.User;
 import com.Msa.userportal.repository.DBFileRepository;
+import com.Msa.userportal.security.CurrentUser;
+import com.Msa.userportal.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +31,8 @@ public class DBFileStorageServiceImpl implements DBFileStorageService {
             }
 
             DBFile dbFile = new DBFile(fileName, file.getContentType(), file.getBytes());
+            UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            user.setAvatar(dbFile);
 
             return dbFileRepository.save(dbFile);
 

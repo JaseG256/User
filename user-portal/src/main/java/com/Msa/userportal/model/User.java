@@ -46,10 +46,10 @@ public class User extends DateAudit {
 //            inverseJoinColumns = @JoinColumn(name = "group_chat_id"))
 //    private List<Conversation> groupChats = new ArrayList<>();
 
-//    @OneToOne(fetch = FetchType.LAZY,
-//    cascade = CascadeType.ALL,
-//    mappedBy = "user")
-//    private DBFile avatar;
+    @OneToOne(fetch = FetchType.LAZY,
+    cascade = CascadeType.ALL,
+    mappedBy = "user")
+    private DBFile avatar;
 
     public User() { }
 
@@ -115,9 +115,9 @@ public class User extends DateAudit {
         this.roles = roles;
     }
 
-//    public DBFile getAvatar() { return avatar; }
-//
-//    public void setAvatar(DBFile avatar) { this.avatar = avatar; }
+    public DBFile getAvatar() { return avatar; }
+
+    public void setAvatar(DBFile avatar) { this.avatar = avatar; }
 
     @Override
     public String toString() {

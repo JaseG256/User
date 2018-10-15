@@ -20,9 +20,9 @@ public class DBFile {
     @Lob
     private byte[] data;
 
-//    @OneToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public DBFile() { }
 
@@ -62,5 +62,13 @@ public class DBFile {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
